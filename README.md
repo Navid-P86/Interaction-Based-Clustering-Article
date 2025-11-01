@@ -1,4 +1,4 @@
-# 🌟 Interaction-Based Clustering (IBC) — A Step-by-Step Article
+#  Interaction-Based Clustering (IBC) — A Step-by-Step Article
 
 ### Abstract
 **Interaction-Based Clustering (IBC)** is a practical and theoretical framework linking important interaction features (products of variables like $X_i \times X_j$) to natural clusters in data. When an interaction dominates the data-generating process, one variable of that interaction (or a combination of them) can define regime boundaries. Splitting data along those regimes and fitting local models often yields large improvements in predictive performance and interpretability. This article builds the idea from first principles, provides three mathematical proofs, demonstrates them with reproducible concepts, extends the concept to higher-degree interactions, and outlines how to apply IBC to high-dimensional real-world data.
