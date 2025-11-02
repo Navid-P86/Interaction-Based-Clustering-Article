@@ -20,6 +20,7 @@
 * [12. Conclusion & Future Directions](#12-conclusion--future-directions)
 * [13. Appendix - compact code summary](#13-Appendix--compact-code-summary)
 * [14.Mathematical Justification: Why IBC Outperforms Standard Clustering When a Dominant Interaction Feature Exists]
+* [15. Interaction Strength Score (ISS)]
   
 ---
 
@@ -345,3 +346,42 @@ Otherwise, IBC reduces to normal clustering and provides no additional benefit.
 
 ---
 
+## 15. Interaction Strength Score (ISS)
+
+To identify the most influential pairwise interaction term in a multivariate dataset, we define the **Interaction Strength Score (ISS)**.
+
+For any interaction between features $X_i$ and $X_j$, the score is computed as:
+
+$$\mathrm{ISS}(i,j) = \left| \beta_{ij}^{\mathrm{LASSO}} \right| \cdot \mathrm{Var}(X_i X_j)$$
+
+where:
+* $\beta_{ij}^{\mathrm{LASSO}}$ denotes the coefficient assigned to the interaction term $X_i X_j$ by a **Lasso regression model** fitted exclusively on interaction features.
+* $\left| \cdot \right|$ denotes the absolute value.
+* $\mathrm{Var}(X_i X_j)$ represents the sample **variance** of the interaction term.
+
+### Interpretation and Purpose
+
+The score rewards interaction terms that exhibit both:
+1.  **Strong estimated predictive effect** (via $\left| \beta_{ij}^{\mathrm{LASSO}} \right|$).
+2.  **Sufficiently large empirical variability** in the dataset (via $\mathrm{Var}(X_i X_j)$).
+
+Unlike ranking by Lasso coefficient magnitude alone, ISS **penalizes rare or low-variance interactions** that may appear spuriously strong due to overfitting or data sparsity.
+
+Thus, ISS selects interactions that are both **statistically relevant and broadly influential** across the dataset, making it suitable as a criterion for interaction-based clustering (IBC).
+
+| Score Result | Implication | Suitability for IBC |
+| :--- | :--- | :--- |
+| **High ISS** | Strong and widely expressed interaction | Suitable clustering axis |
+| **Low ISS** | Weak or localized interaction | Clustering not justified |
+
+ISS is used to determine whether an interaction is dominant enough to replace conventional distance-based clustering and instead segment data along the plane defined by $(X_i, X_j)$. 
+
+### Usage within the IBC Framework
+
+1.  Construct a polynomial feature set (including all pairwise interactions).
+2.  Fit Lasso on the interaction terms only.
+3.  Compute ISS for all pairs $(i, j)$.
+4.  **Select the interaction with maximum ISS.**
+5.  Perform clustering (e.g., splitting by median/sign) in the subspace spanned by $X_i$ and $X_j$.
+
+---
