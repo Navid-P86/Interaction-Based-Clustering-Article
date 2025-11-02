@@ -14,13 +14,14 @@
 * [6. Expected $R^2$ Improvement from Clustering (Intuition & Formula)](#6-expected-r2-improvement-from-clustering-intuition--formula)
 * [7. From Theory to Practice — Algorithmic IBC Pipeline](#7-from-theory-to-practice--algorithmic-ibc-pipeline)
 * [8. Simulations and Experiments (Conceptual Demonstration)](#8-simulations-and-experiments-conceptual-demonstration)
-* [9. When D₁/D₂ can beat global interaction model C](#9-when-d₁d₂-can-beat-global-interaction-model-c)
+* [9. When D₁/D₂ can beat global interaction model C](#9-when-dd-can-beat-global-interaction-model-c)
 * [10. High-Dimensional & Real-World Considerations](#10-high-dimensional--real-world-considerations)
 * [11. Practical Recommendations & Diagnostics](#11-practical-recommendations--diagnostics)
 * [12. Conclusion & Future Directions](#12-conclusion--future-directions)
-* [13. Appendix - compact code summary](#13-Appendix--compact-code-summary)
-* [14.Mathematical Justification: Why IBC Outperforms Standard Clustering When a Dominant Interaction Feature Exists]
-* [15. Interaction Strength Score (ISS)]
+* [13. Appendix compact code summary](#13-appendix-compact-code-summary)
+* [14. Mathematical Justification: Why IBC Outperforms Standard Clustering When a Dominant Interaction Feature Exists](#14-mathematical-justification-why-ibc-outperforms-standard-clustering-when-a-dominant-interaction-feature-exists)
+* [15. Interaction Strength Score (ISS)](#15-interaction-strength-score-iss)
+* [16. Conditions for Guaranteed IBC Improvement](#16-conditions-for-guaranteed-ibc-improvement)
   
 ---
 
@@ -228,7 +229,7 @@ IBC connects model interpretability, feature selection, and clustering: importan
 
 ---
 
-## 13. Appendix — compact code summary
+## 13. Appendix compact code summary
 Below is a compact snippet that performs the full automated IBC discovery (selection → cluster → compare models). It is a simplified blueprint — tune and extend for production.
 
 ```python
