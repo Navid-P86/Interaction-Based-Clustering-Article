@@ -385,3 +385,43 @@ ISS is used to determine whether an interaction is dominant enough to replace co
 5.  Perform clustering (e.g., splitting by median/sign) in the subspace spanned by $X_i$ and $X_j$.
 
 ---
+
+## 16. Conditions for Guaranteed IBC Improvement
+
+IBC is a specialized technique that is most effective when specific structural characteristics exist in the data. Here are the three main diagnostic checks to determine if IBC is warranted:
+
+### 1. Strong Interaction Signal (High ISS or $\Delta R^2$)
+
+IBC works when there exists at least one pair of features $(X_i, X_j)$ such that the interaction term $X_i \cdot X_j$ dramatically improves prediction accuracy.
+
+We can quantify this improvement using the change in $R^2$ ($\Delta R^2$) between a simple linear model and a model that includes all polynomial features (Model C):
+
+$$\Delta R^2 = R^2_{\text{poly}} - R^2_{\text{linear}} \gg 0$$
+
+*  If $\Delta R^2 \approx 0 \to$ dataset is too linear $\to$ IBC is unlikely to help.
+*  If $\Delta R^2 > 0.05$ (5% lift) $\to$ strong candidate for IBC.
+
+---
+
+### 2. Interaction Strength Score (ISS) has a Clear Winner
+
+IBC is most effective when one interaction dominates all others, providing a clear candidate for the clustering axis. We check this by examining the distribution of the $\mathrm{ISS}$ scores:
+
+$$\max(\mathrm{ISS}) \gg \text{median}(\mathrm{ISS})$$
+
+*  If the $\mathrm{ISS}$ distribution is flat $\to$ no dominant interaction $\to$ avoid IBC.
+*  If one $\mathrm{ISS}$ value is $3 \times$ larger than the others $\to$ IBC is promising.
+
+---
+
+### 3. Target Surface Is Piecewise-Linear but Not Globally Linear
+
+IBC thrives in datasets that contain hidden regimes. If you graph $Y$ as a function of any single feature and it looks weak or noisy, but the relationship becomes highly structured when conditioned on another variable, IBC is likely to succeed. 
+
+**Example:**
+* Housing price vs. number of rooms $\to$ **Noisy**
+* Housing price vs. number of rooms **split by neighborhood** $\to$ **Clean**
+
+That dataset has hidden regimes, and IBC discovers those regimes automatically by identifying the neighborhood feature's interaction signal.
+
+---
